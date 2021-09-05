@@ -2,6 +2,7 @@ package com.medic.dto;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -17,11 +18,13 @@ public class PatientRequest {
     private Long id;
 
     @NotNull
-    @Size(min=3, message="Nombres es mínimo 3 caracteres")
+//    @Size(min=3, message="Nombres es mínimo 3 caracteres")
+    @Size(min=3, message="{nombres.size}")
     private String firstName;
 
     @NotNull
-    @Size(min=3, message="Apellidos es mínimo 8 caracteres")
+//    @Size(min=3, message="Apellidos es mínimo 8 caracteres")
+    @Size(min=3, message="{apellidos.size}")
     private String lastName;
 
     @NotNull

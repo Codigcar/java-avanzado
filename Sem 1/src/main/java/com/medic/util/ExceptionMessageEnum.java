@@ -2,7 +2,7 @@ package com.medic.util;
 
 public enum ExceptionMessageEnum {
 
-    MODEL_NOT_FOUND("Recurso no encontrado"),
+    MODEL_NOT_FOUND("Recurso no encontradooo"),
     INCORRECT_REQUEST("Petición incorrectoa");
 
     private final String values;

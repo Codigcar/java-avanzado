@@ -47,14 +47,15 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
         return new ResponseEntity<ExceptionResponse>(er, HttpStatus.NOT_FOUND);
     }*/
-
+/*
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllExceptions(Exception exception, WebRequest request) {
-        ExceptionResponse response = new ExceptionResponse(ExceptionMessageEnum.INCORRECT_REQUEST.getValues(), request.getDescription(false), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
+        ExceptionResponse response = new ExceptionResponse(ExceptionMessageEnum.INCORRECT_REQUEST.getValues(),
+                    request.getDescription(false), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
         return new ResponseEntity<>(response, response.getStatus());
-    }
+    }*/
 
-
+    /*
     @ExceptionHandler(IncorrectRequestException.class)
     public ResponseEntity<Object> handleIncorrectRequest(IncorrectRequestException exception, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(exception.getMessage(), request.getDescription(false), HttpStatus.BAD_REQUEST, LocalDateTime.now());
@@ -66,5 +67,38 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleResourceNotFound(ModelNotFoundException exception, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(exception.getMessage(), request.getDescription(false), HttpStatus.NOT_FOUND, LocalDateTime.now());
         return new ResponseEntity<>(response, response.getStatus());
+    }*/
+
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request){
+        ExceptionResponse er = new ExceptionResponse(
+                LocalDateTime.now(),
+                //ExceptionMessageEnum.INCORRECT_REQUEST.getValues(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ExceptionResponse>(er, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        String mensaje = ex.getBindingResult().getAllErrors().stream().map(e -> {
+            return e.getDefaultMessage().toString().concat(", ");
+        }).collect(Collectors.joining());
+
+        ExceptionResponse er = new ExceptionResponse(LocalDateTime.now(), mensaje,
+                request.getDescription(false));
+
+        return new ResponseEntity<Object>(er, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ModelNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> manejarModeloNotFoundException(ModelNotFoundException ex,
+                                                                            WebRequest request) {
+
+        ExceptionResponse er = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ExceptionResponse>(er, HttpStatus.NOT_FOUND);
     }
 }
