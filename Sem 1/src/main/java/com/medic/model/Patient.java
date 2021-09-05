@@ -32,7 +32,7 @@ public class Patient {
     @Column(name="address", nullable = false,length = 150)
     private String address;
 
-    @Column(name="phone", nullable = false,length = 150)
+    @Column(name="phone", nullable = false,length = 9)
     private String phone;
 
     @Column(name="email", nullable = true, length = 55)
