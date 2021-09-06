@@ -2,20 +2,12 @@ package com.medic.dto;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
-import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Data //Genere el Get y SET
 public class PatientRequest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotNull
 //    @Size(min=3, message="Nombres es mínimo 3 caracteres")
