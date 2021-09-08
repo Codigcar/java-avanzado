@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Data
-public class PettRequest {
+public class PetRequest {
 
     @NotNull
     @Size(min=3, message="Nombre es minimo 3 caracteres")
