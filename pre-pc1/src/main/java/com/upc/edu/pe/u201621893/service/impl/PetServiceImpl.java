@@ -1,15 +1,12 @@
 package com.upc.edu.pe.u201621893.service.impl;
 
 
-import com.upc.edu.pe.u201621893.dto.PetRequest;
-import com.upc.edu.pe.u201621893.dto.response.PetResponse;
 import com.upc.edu.pe.u201621893.model.Pet;
 import com.upc.edu.pe.u201621893.model.Profile;
 import com.upc.edu.pe.u201621893.repository.GenericRepository;
 import com.upc.edu.pe.u201621893.repository.PetRepository;
 import com.upc.edu.pe.u201621893.repository.ProfileRepository;
 import com.upc.edu.pe.u201621893.service.PetService;
-import com.upc.edu.pe.u201621893.service.ProfileService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +31,7 @@ public class PetServiceImpl extends CrudServiceImpl<Pet, Long> implements PetSer
     private static final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public PetResponse registerProduct(PetRequest createPetDTORequest, Long profileId) throws Exception {
+    public Pet registerPet(Pet createPetDTORequest, Long profileId) throws Exception {
 
         Optional<Profile> profileDB = profileRepository.findById(profileId);
         if(!profileDB.isPresent()){
@@ -57,8 +54,8 @@ public class PetServiceImpl extends CrudServiceImpl<Pet, Long> implements PetSer
             throw new Exception("Exception Internal Error - Catch");
         }
 
-        return  modelMapper.map(petDB,PetResponse.class);
-
+        //return  modelMapper.map(petDB,PetResponse.class);
+        return  petDB;
     }
 
 }

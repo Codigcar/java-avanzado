@@ -28,6 +28,7 @@ public class ProfileController {
         List<Profile> profileList = profileService.getAll();
         return new ResponseEntity<>(profileConverter.convertProfileToDto(profileList), HttpStatus.OK);
     }
+
     @PostMapping()
     public ResponseEntity<Profile> createProfile( @Valid @RequestBody ProfileRequest profileRequest) throws Exception{
         Profile profileNew = profileService.create(profileConverter.convertProfileToEntity(profileRequest));
