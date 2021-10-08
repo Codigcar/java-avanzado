@@ -39,4 +39,12 @@ public class PetController {
         //Pet petNew = petConverter.convertEntityToDto(petDB);
         return new ResponseEntity<>(petDB, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Pet> update(@PathVariable("id") Long id, @Valid @RequestBody PetRequest petRequest) throws Exception{
+        Pet petUpdated = petService.updatePet(id, petConverter.convertDTOToEntity(petRequest));
+        return new ResponseEntity<Pet>(petUpdated, HttpStatus.OK);
+    }
+
+
 }

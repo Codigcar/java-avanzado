@@ -58,4 +58,16 @@ public class PetServiceImpl extends CrudServiceImpl<Pet, Long> implements PetSer
         return  petDB;
     }
 
+    @Override
+    public Pet updatePet(Long id, Pet petNew) {
+        Pet petDB = petRepository.getById(id);
+        petDB.setAge(petNew.getAge());
+        petDB.setBreed(petNew.getBreed());
+        petDB.setName(petNew.getName());
+        petDB.setPhoto(petNew.getPhoto());
+        petDB.setSex(petNew.getSex());
+
+        return petRepository.save(petDB);
+    }
+
 }
