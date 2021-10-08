@@ -19,4 +19,16 @@ public class ProfileServiceImpl extends CrudServiceImpl<Profile, Long> implement
         return profileRepository;
     }
 
+    @Override
+    public Profile updateProfile(Long id, Profile profileNew) {
+        Profile profileDB = profileRepository.getById(id);
+        profileDB.setAddress(profileNew.getAddress());
+        profileDB.setDni(profileNew.getDni());
+        profileDB.setEmail(profileNew.getEmail());
+        profileDB.setFirstName(profileNew.getFirstName());
+        profileDB.setLastName(profileNew.getLastName());
+        profileDB.setPhone(profileNew.getPhone());
+
+        return profileRepository.save(profileDB);
+    }
 }
